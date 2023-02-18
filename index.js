@@ -1,6 +1,5 @@
 const inquirer = require('inquirer');
 const cTable = require('console.table');
-
 const connect = require('./connection');
 
 
@@ -47,10 +46,10 @@ async function firstPrompt() {
             addDepartment();
             break;
         case 'Quit':
-            exit();
+            quit();
             break;
         default: 
-        console.log("None matchded")
+        console.log("None matched")
         //process.exit();
     }
 }
@@ -158,7 +157,7 @@ async function viewAllRoles() {
 
 async function addRole() {
     console.log("add role");
-    connect.query = ('')
+    connect.query  ('')
         if (err) {
             throw err
         }
@@ -166,19 +165,20 @@ async function addRole() {
         firstPrompt();
 }
 
-async function viewAllDepartments() {
+ function viewAllDepartments() {
     console.log("view all departments")
-    connect.query = ('SELECT ')
+    connect.query ('SELECT * FROM department', (err, result) => {
         if (err) {
             throw err
         }
         console.table(result)
         firstPrompt();
+    })
 }
 
 async function addDepartment() {
     console.log("add department")
-    connect.query = ('')
+    connect.query  ('')
         if (err) {
             throw err
         }
