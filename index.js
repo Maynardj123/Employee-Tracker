@@ -126,7 +126,7 @@ connect.query('SELECT * FROM employee ',(err, result2) => {
                  }
                  console.table(result)
                  firstPrompt();
-             })
+            })
         })
     }) 
 }) 
@@ -157,15 +157,66 @@ async function viewAllRoles() {
 
 async function addRole() {
     console.log("add role");
-    connect.query  ('')
+    // query into the role table to get all the roles
+    connect.query('SELECT * FROM department',(err, result3) => {
+        
         if (err) {
-            throw err
+             throw err
         }
-        console.table(result)
-        firstPrompt();
+         console.table(result3)
+        //  loops through the array and returns the roles
+        let departments = result3.map(department => department.name) 
+        console.log(departments)
+// select all from employee table
+// connect.query('SELECT role.title, role.salary FROM role ',(err, result4) => {
+        
+//     if (err) {
+//          throw err
+//     }
+//      console.log(result4)
+//     //  loops through the array and returns the employees
+//     let rolesAdd = result4.map(role => role.title+'. '+role.salary) 
+//     console.log(rolesAdd)
+// asks questions to add the information of the new employee
+        inquirer.prompt ([
+            {
+                type: 'input',
+                name: 'roleName',
+                message: 'What is the name of the role?',
+            },
+            {
+                type: 'input',
+                name: 'roleSalary',
+                message: 'What is the salary of the role?',  
+            },
+            {
+                type: 'list',
+                name: 'departmentRole',
+                message: 'Which department does the role belong to?',
+                choices: departments,
+            },
+        ]).then((answer) =>{
+            // split it so you can extract the id number before the period
+            // let roleTitle = answer.role.split('.')[0]
+          
+            connect.query ('INSERT INTO role(title, salary, department_id) VALUES (?, ?, ?) ', [answer.roleName ,answer.roleSalary, answer.departmentRole], (err, result) => {
+                for (let i=0; i < result3.length; i++){
+                    if (result3[i].department_name === answer.departmentRole) {
+                        department_id = result3[i].id
+                    }
+                }
+                if (err) {
+                     throw err
+                 }
+                 console.table(result)
+                 firstPrompt();
+            })
+        })
+    }) 
 }
+// ) }
 
- function viewAllDepartments() {
+function viewAllDepartments() {
     console.log("view all departments")
     connect.query ('SELECT * FROM department', (err, result) => {
         if (err) {
@@ -178,13 +229,26 @@ async function addRole() {
 
 async function addDepartment() {
     console.log("add department")
-    connect.query  ('')
-        if (err) {
-            throw err
-        }
-        console.table(result)
-        firstPrompt();
-}
+    
+        inquirer.prompt ([
+            {
+                type: 'input',
+                name: 'departmentName',
+                message: 'What is the name of the department?',
+            },
+        ]).then((answer) =>{
+            connect.query(' INSERT INTO department (name) VALUES (?);', answer.departmentName,(err, result2) => {
+                if (err) {
+                     throw err
+                    
+                }
+                console.log('ahhhhhhhhhhhh')
+                viewAllDepartments()
+            })
+               
+        })
+        
+}    
 
 async function quit() {
     console.log("quit")
