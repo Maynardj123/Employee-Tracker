@@ -165,7 +165,7 @@ async function addRole() {
         }
          console.table(result3)
         //  loops through the array and returns the roles
-        let departments = result3.map(department => department.name) 
+        let departments = result3.map(department => {var departmentChoice = {value: department.id, name: department.name}; return departmentChoice; }) 
         console.log(departments)
 // select all from employee table
 // connect.query('SELECT role.title, role.salary FROM role ',(err, result4) => {
@@ -198,18 +198,20 @@ async function addRole() {
         ]).then((answer) =>{
             // split it so you can extract the id number before the period
             // let roleTitle = answer.role.split('.')[0]
-          
+            
             connect.query ('INSERT INTO role(title, salary, department_id) VALUES (?, ?, ?) ', [answer.roleName ,answer.roleSalary, answer.departmentRole], (err, result) => {
+                
+                
                 for (let i=0; i < result3.length; i++){
                     if (result3[i].department_name === answer.departmentRole) {
-                        department_id = result3[i].id
+                        department.id = result3[i].id
                     }
                 }
                 if (err) {
                      throw err
-                 }
-                 console.table(result)
-                 firstPrompt();
+                }
+                console.table(result)
+                firstPrompt();
             })
         })
     }) 
