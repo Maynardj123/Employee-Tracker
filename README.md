@@ -18,6 +18,7 @@
   ## Usage
   open integrated terminal by right clicking on index.js, proceeded by typing node index.js
 
+[challenge 12 video.webm](https://user-images.githubusercontent.com/120345723/220534087-8eaf9401-a0fe-40c9-bc53-67164b06c99b.webm)
 
 
   ## Credits
