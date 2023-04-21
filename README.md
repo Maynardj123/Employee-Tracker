@@ -4,7 +4,10 @@
   ## Title
  Employee Tracker
 
-
+![GitHub language count](https://img.shields.io/github/languages/count/Maynardj123/Challenge-12?style=flat-square)
+![GitHub top language](https://img.shields.io/github/languages/top/Maynardj123/Challenge-12?color=green&style=flat-square)
+![GitHub repo size](https://img.shields.io/github/repo-size/Maynardj123/Challenge-12?color=yellow&style=flat-square)
+![GitHub](https://img.shields.io/github/license/Maynardj123/Challenge-12?color=orange&style=flat-square)
 
   ## Description
   I built this in order to get a better understanding of using databases, node.js, and creating information through a database. My motivation was to learn more on how to set up a system of questions and answers through node.js. 
